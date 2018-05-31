@@ -19,6 +19,13 @@
         background-repeat:no-repeat;
         background-position: center center;
       }
+
+      .blackbg {
+        background: -webkit-radial-gradient(rgba(0,0,0,0.55) 40%,transparent 100%); 
+        background: -o-radial-gradient(rgba(0,0,0,0.55) 40%,transparent 100%);
+        background: -moz-radial-gradient(rgba(0,0,0,0.55) 40%,transparent 100%);
+        background: radial-gradient(rgba(0,0,0,.55) 40%,transparent 100%)
+      }
     </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -54,7 +61,7 @@
             </div>
           </div>
 
-          <div class="inner cover">
+          <div class="inner cover blackbg">
             <h1 class="cover-heading" id="pichead"><img src="images/2016headshot.jpg" class="img-circle" width="128" height="128" /><br>Chris Grabosky</h1>
             <p class="lead">Solutions Engineering Manager for Quali out of Delran, NJ</p>
             <p class="lead">Drexel University Alumnus of the IS BS/MS programs</p>
