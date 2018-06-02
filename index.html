@@ -73,7 +73,14 @@
       </div>
 
     </div>
+
     
+    <div id="users-device-size">
+      <div id="xs" class="visible-xs"></div>
+      <div id="sm" class="visible-sm"></div>
+      <div id="md" class="visible-md"></div>
+      <div id="lg" class="visible-lg"></div>
+    </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -83,6 +90,15 @@
     <script src="js/ie10-viewport-bug-workaround.js"></script>
     <script src="js/rotate.js"></script>
     <script src="js/ga.js"></script>
-
+    <script>
+      $(function() {
+          var size = $('#users-device-size').find('div:visible').first().attr('id');
+          if (( size == "xs") || (size == "sm")) {
+            if(window.self !== window.top) {
+              window.top.location  = window.self.location;
+            }
+          }
+      });
+  </script>
   </body>
 </html>
