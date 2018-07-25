@@ -11,7 +11,7 @@ function rotateBG(i, imgArr) {
 }
 
 $(function() {
-	var imgArr = ['bg1.JPG','bg9.jpg', 'bg2.JPG', 'bg11.jpg', 'bg7.jpg','bg4.JPG','bg5.jpg','bg3.JPG', 'bg10.jpg'];
+	var imgArr = ['bg1.JPG','bg9.jpg', 'bg2.JPG', 'bg11.jpg', 'bg7.jpg','bg4.JPG','bg12.jpg','bg3.JPG', 'bg10.jpg'];
 	
     $(imgArr).each(function(){
         (new Image()).src = 'images/'+this;
