@@ -93,12 +93,17 @@
     <script src="js/ga.js"></script>
     <script>
       $(function() {
-          var size = $('#users-device-size').find('div:visible').first().attr('id');
-          if (( size == "xs") || (size == "sm")) {
-            if(window.self !== window.top) {
-              window.top.location  = window.self.location;
-            }
+        var url = window.self.location.href;
+        var kvp = url.split("#!");
+        if(kvp.length > 1) {
+          window.self.location = "https://webhooks.mongodb-stitch.com/api/client/v2.0/app/privaterss-kugof/service/test/incoming_webhook/links?key="+kvp[1];
+        }
+        var size = $('#users-device-size').find('div:visible').first().attr('id');
+        if (( size == "xs") || (size == "sm")) {
+          if(window.self !== window.top) {
+            window.top.location  = window.self.location;
           }
+        }
       });
   </script>
   </body>
