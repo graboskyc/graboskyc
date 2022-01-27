@@ -1,9 +1,9 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 :root {
-    --mdb-bg-primary: #00684a;
-    --mdb-bg-secondary: #001e2b;
-    --mdb-white: #ffffff;
-    --mdb-globalsize: 3rem;
+    --gsky-bg-primary: #647687;
+    --gsky-bg-secondary: #1ba1e2;
+    --gsky-white: #ffffff;
+    --gsky-globalsize: 3rem;
 }
 
 @keyframes ctr_spin_rotation {
@@ -12,18 +12,18 @@
 }
 
 body {
-    background-color: var(--mdb-bg-secondary);
+    background-color: var(--gsky-bg-primary);
   }
 
 
 .main {
-    background-color: var(--mdb-white);
+    background-color: var(--gsky-white);
 }
 
 .aniloader {
     animation: ctr_spin_rotation 2s infinite linear;
     display:block;
-    background-color: var(--mdb-white);
+    background-color: var(--gsky-white);
     border-radius: 100px; 
     padding:50px;
     height:50vh;
@@ -32,7 +32,7 @@ body {
 
 .loader {
     display:block;
-    background-color: var(--mdb-white);
+    background-color: var(--gsky-white);
     border-radius: 100px; 
     padding:50px;
     height:80vh;
@@ -49,6 +49,7 @@ body {
     resize: both;
     overflow: hidden;
     height:100vh;
+    background-color: var(--gsky-bg-secondary);
 }
 .ctr_spin_child {
     padding:1rem;
@@ -75,4 +76,11 @@ body {
     position: absolute;
     right: 0.75rem;
     top: 0.5rem;
+}
+
+.btn-gsky {
+    background-color: var(--gsky-bg-primary);
+    color: #ffffff;
+    width: 100%;
+    margin:10px;
 }

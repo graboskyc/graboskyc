@@ -39,8 +39,17 @@
                       </div>
                     </div>
                 }
-            }     
+            }
       </div>
+
+      <div class="row">&nbsp;</div>
+
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-lg btn-gsky" @onclick=More>More Posts</button>
+        </div>
+      </div>
+      
     </div>
   </div>
 </div>
@@ -54,6 +63,13 @@
 
         string[] args = {};
         posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getPosts", args);
+        StateHasChanged();
+    }
+
+    private async Task More() {
+        string[] args = {posts.LastOrDefault()._id};
+        List<DataModels.Blog> newPosts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getPosts", args);
+        posts.AddRange(newPosts);
         StateHasChanged();
     }
 

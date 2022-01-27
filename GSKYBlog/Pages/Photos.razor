@@ -36,6 +36,15 @@
                 }
             }     
       </div>
+
+      <div class="row">&nbsp;</div>
+
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-lg btn-gsky" @onclick=More>More Pics</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -49,6 +58,13 @@
 
         string[] args = {};
         pics = await JSRuntime.InvokeAsync<List<DataModels.IG>>("realmShim_Function", "getPics", args);
+        StateHasChanged();
+    }
+
+    private async Task More() {
+        string[] args = {pics.LastOrDefault()._id};
+        List<DataModels.IG> newPics = await JSRuntime.InvokeAsync<List<DataModels.IG>>("realmShim_Function", "getPics", args);
+        pics.AddRange(newPics);
         StateHasChanged();
     }
 
