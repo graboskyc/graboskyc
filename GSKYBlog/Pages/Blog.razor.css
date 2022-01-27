@@ -31,3 +31,12 @@
     min-height: 70vh;
     place-items: center;
   }
+
+  .card-img-top {
+    object-fit: cover;
+    aspect-ratio: 3/2;
+  }
+
+  .row {
+    text-align: center;
+  }
