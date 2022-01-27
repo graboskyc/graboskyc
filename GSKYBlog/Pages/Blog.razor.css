@@ -1,5 +1,5 @@
 .mainheader {
-    background-image: url("/assets/BGs/bg4.jpg");
+    background-image: url("/assets/BGs/bg1.jpg");
     background-size:cover;
     background-repeat:no-repeat;
     background-position: center center;
@@ -25,4 +25,9 @@
     margin-bottom:20px !important;
     border:5px solid #1F1F1F;
     border-radius:50%;
+  }
+
+  .masthead {
+    min-height: 70vh;
+    place-items: center;
   }

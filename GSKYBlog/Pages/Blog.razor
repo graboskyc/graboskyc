@@ -7,7 +7,7 @@
 <PageTitle>Chris Grabosky's Blog</PageTitle>
 
 <div class="mainheader">
-    <div class="row py-lg-5">
+    <div class="row py-lg-5 masthead">
       <div class="col-lg-6 col-md-8 mx-auto">
         <img src="assets/2018headshot.jpg" class="img-circle" width="128" height="128" />
         <h1>Chris Grabosky</h1>
@@ -29,11 +29,14 @@
             @if(posts != null) {
                 @foreach(var p in posts) {
                     <div class="col">
-                        <div class="card shadow-sm" >
-                            <h3>@p.title</h3>
-                            <p>@p.plaintext.Substring(0,50)</p>
-                            <button @onclick="@(e=>NavTo(p._id))" class="btn btn-sm btn-default">Read more..</button>
+                      <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="@p.Hero" />
+                        <div class="card-body">
+                          <h5 class="card-title">@p.title</h5>
+                          <p class="card-text">@p.plaintext.Substring(0,50)</p>
+                            <button @onclick="@(e=>NavTo(p._id, p.slug))" class="btn btn-sm btn-default">Read more..</button>
                         </div>
+                      </div>
                     </div>
                 }
             }     
@@ -54,7 +57,7 @@
         StateHasChanged();
     }
 
-    private async Task NavTo(string id) {
-        NavigationManager.NavigateTo("/Post/"+@id);
+    private async Task NavTo(string id, string slug) {
+        NavigationManager.NavigateTo("/Post/"+@id+"/"+slug);
     }
 }

@@ -31,10 +31,10 @@
     top: 3vh;
     position: absolute;
     width: 100%;
+    place-items: center;
   }
 
-  a {
-    text-shadow: 2px 2px #1F1F1F;
-    color: #fff;
-    float:left;
+  .ctr_top a {
+    padding: 5px;
+    background-color: #000;
   }
