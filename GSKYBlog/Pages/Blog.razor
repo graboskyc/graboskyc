@@ -1,0 +1,59 @@
+﻿@page "/Blog";
+@page "/Posts";
+@layout AlbumLayout;
+@inject IJSRuntime JSRuntime;
+@inject NavigationManager NavigationManager;
+
+<PageTitle>Chris Grabosky's Blog</PageTitle>
+
+<div class="mainheader">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <img src="assets/2018headshot.jpg" class="img-circle" width="128" height="128" />
+        <p class="lead">Father, paintballer, tinkerer, & technology enthusiast</p>
+        <p class="lead">Views and thoughts are my own</p>
+        <p>
+            <a href="/Home">Home</a> | 
+            <a href="/Pics">Pics</a>
+        </p>
+      </div>
+    </div>
+</div>
+
+<div class="container">
+  <div class="py-5 bg-light">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            @if(posts != null) {
+                @foreach(var p in posts) {
+                    <div class="col">
+                        <div class="card shadow-sm" >
+                            <h3>@p.title</h3>
+                            <p>@p.plaintext.Substring(0,50)</p>
+                            <button @onclick="@(e=>NavTo(p._id))" class="btn btn-sm btn-default">Read more..</button>
+                        </div>
+                    </div>
+                }
+            }     
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+    private List<DataModels.Blog> posts = null;
+    private bool loginSuccess;
+    protected override async Task OnInitializedAsync ()
+    {
+        loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
+
+        string[] args = {};
+        posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getPosts", args);
+        StateHasChanged();
+    }
+
+    private async Task NavTo(string id) {
+        NavigationManager.NavigateTo("/Post/"+@id);
+    }
+}

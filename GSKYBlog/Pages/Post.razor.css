@@ -1,5 +1,5 @@
 .mainheader {
-    background-image: url("/assets/BGs/bg6.jpg");
+    background-image: url("/assets/BGs/bg1.jpg");
     background-size:cover;
     background-repeat:no-repeat;
     background-position: center center;
@@ -21,12 +21,4 @@
     text-shadow: 2px 2px #1F1F1F;
     color: #fff;
   }
-  
-  img {
-    object-fit: cover;
-    width: 50%;
-  }
 
-  .card {
-      place-items: center;
-    }

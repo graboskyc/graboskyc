@@ -1,0 +1,54 @@
+@page "/Post/{PostID}"
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime;
+@using HeyRed.MarkdownSharp;
+@layout AlbumLayout;
+
+<PageTitle>Chris Grabosky's Blog</PageTitle>
+
+<div class="mainheader">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1>Photos</h1>
+        <p class="lead">An export of Chris Grabosky (graboskyc) Instagram profile</p>
+        <p>
+            <a href="/Home">Home</a> | 
+            <a href="/Blog">Blog</a> | 
+            <a href="/Pics">Pics</a> 
+        </p>
+      </div>
+    </div>
+</div>
+
+<div class="container">
+  <div class="py-5 bg-light">
+    <div class="container">
+
+      <div class="row ">
+            @if(post != null) {
+                <h1>@post.title</h1>
+                @PostBody
+            }     
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+    [Parameter]
+    public string PostID {get; set;}
+    private DataModels.Blog post = null;
+    private MarkupString PostBody;
+    Markdown mark = new Markdown();
+
+    private bool loginSuccess;
+    protected override async Task OnInitializedAsync ()
+    {
+        loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
+
+        string[] args = {PostID};
+        post = await JSRuntime.InvokeAsync<DataModels.Blog>("realmShim_Function", "getPost", args);
+        PostBody = (MarkupString)mark.Transform(post.plaintext);
+        StateHasChanged();
+    }
+}
