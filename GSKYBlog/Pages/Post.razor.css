@@ -7,7 +7,7 @@
     text-align: center;
   }
   
-  h1{
+  .mainheader h1{
     text-shadow: 2px 2px #1F1F1F;
     color: #fff;
   }
@@ -22,3 +22,8 @@
     color: #fff;
   }
 
+  .img-circle {
+    margin-bottom:20px !important;
+    border:5px solid #1F1F1F;
+    border-radius:50%;
+  }
