@@ -1,0 +1,27 @@
+.mainheader {
+  background-image: url("/assets/BGs/bg4.jpg");
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position: center center;
+  width: 100%;
+  text-align: center;
+}
+
+h1{
+  text-shadow: 2px 2px #1F1F1F;
+  color: #fff;
+}
+
+.mainheader p{
+  text-shadow: 2px 2px #1F1F1F;
+  color: #fff;
+}
+
+.mainheader p a{
+  text-shadow: 2px 2px #1F1F1F;
+  color: #fff;
+}
+
+img {
+  object-fit: cover;
+}

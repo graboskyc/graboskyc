@@ -1,0 +1,78 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+:root {
+    --mdb-bg-primary: #00684a;
+    --mdb-bg-secondary: #001e2b;
+    --mdb-white: #ffffff;
+    --mdb-globalsize: 3rem;
+}
+
+@keyframes ctr_spin_rotation {
+    from { transform: rotateY(0deg) }
+    to { transform: rotateY(360deg) }
+}
+
+body {
+    background-color: var(--mdb-bg-secondary);
+  }
+
+
+.main {
+    background-color: var(--mdb-white);
+}
+
+.aniloader {
+    animation: ctr_spin_rotation 2s infinite linear;
+    display:block;
+    background-color: var(--mdb-white);
+    border-radius: 100px; 
+    padding:50px;
+    height:50vh;
+    margin-top:25vh;
+}
+
+.loader {
+    display:block;
+    background-color: var(--mdb-white);
+    border-radius: 100px; 
+    padding:50px;
+    height:80vh;
+    margin-top:10vh;
+    min-width: 100%;
+    place-items: center;
+    display: grid;
+}
+
+.ctr_spin_parent {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    resize: both;
+    overflow: hidden;
+    height:100vh;
+}
+.ctr_spin_child {
+    padding:1rem;
+    border-radius: 5px;
+    font-size: 2rem;
+    text-align: center;
+    height:100vh;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}

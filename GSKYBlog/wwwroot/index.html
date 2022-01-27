@@ -8,11 +8,19 @@
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
+    <link href="css/custom.css" rel="stylesheet" />
     <link href="GSKYBlog.styles.css" rel="stylesheet" />
+    <script src="https://s3.amazonaws.com/stitch-sdks/js/bundles/4.6.0/stitch.js"></script>
 </head>
 
-<body>
-    <div id="app">Loading...</div>
+<body class="body">
+    <div id="app">
+        <div class="ctr_spin_parent">
+            <div class="ctr_spin_child">
+                <img src="assets/2018headshot.jpg" class="aniloader"/>
+            </div>
+        </div>
+    </div>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
@@ -20,6 +28,7 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script src="/js/realm_shim.js"></script>
 </body>
 
 </html>

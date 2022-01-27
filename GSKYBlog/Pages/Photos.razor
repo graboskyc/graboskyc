@@ -1,0 +1,58 @@
+﻿@page "/pics";
+@page "/photos";
+@page "/ig";
+@layout AlbumLayout;
+@inject IJSRuntime JSRuntime;
+@inject NavigationManager NavigationManager;
+
+<PageTitle>Chris Grabosky's Photos</PageTitle>
+
+<div class="mainheader">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1>Photos</h1>
+        <p class="lead">An export of Chris Grabosky (graboskyc) Instagram profile</p>
+        <p>
+            <a href="/Home">Home</a> | 
+            <a href="/Blog">Blog</a>
+        </p>
+      </div>
+    </div>
+</div>
+
+<div class="container">
+  <div class="py-5 bg-light">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            @if(pics != null) {
+                @foreach(var p in pics) {
+                    <div class="col">
+                        <div class="card shadow-sm" @onclick="@(e=>NavTo(p._id))">
+                            <img src="https://gskywebstore.blob.core.windows.net/media/@p.path" />
+                            @p.taken_at
+                        </div>
+                    </div>
+                }
+            }     
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+    private List<DataModels.IG> pics = null;
+    private bool loginSuccess;
+    protected override async Task OnInitializedAsync ()
+    {
+        loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
+
+        string[] args = {};
+        pics = await JSRuntime.InvokeAsync<List<DataModels.IG>>("realmShim_Function", "getPics", args);
+        StateHasChanged();
+    }
+
+    private async Task NavTo(string id) {
+        NavigationManager.NavigateTo("/Pic/"+@id);
+    }
+}
