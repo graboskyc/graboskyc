@@ -13,14 +13,18 @@ namespace GSKYBlog.DataModels {
         }}
         public string Hero {
             get{
-               if(feature_image.StartsWith("http")) {
-                return feature_image;
-                } else if(feature_image.StartsWith("/content")) {
-                    return "https://gskypublicmedia.s3.amazonaws.com/"+feature_image.Replace("/content/images/","");
-                } else if(feature_image.StartsWith("__GHOST_URL")) {
-                    return "https://gskypublicmedia.s3.amazonaws.com/"+feature_image.Replace("__GHOST_URL__/content/images/","");
+                if(feature_image != null) {
+                    if(feature_image.StartsWith("http")) {
+                        return feature_image;
+                    } else if(feature_image.StartsWith("/content")) {
+                        return "https://gskypublicmedia.s3.amazonaws.com/"+feature_image.Replace("/content/images/","");
+                    } else if(feature_image.StartsWith("__GHOST_URL")) {
+                        return "https://gskypublicmedia.s3.amazonaws.com/"+feature_image.Replace("__GHOST_URL__/content/images/","");
+                    } else {
+                        return feature_image;
+                    }
                 } else {
-                    return feature_image;
+                    return "";
                 }
             }
         }

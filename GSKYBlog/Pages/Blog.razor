@@ -1,5 +1,6 @@
 ﻿@page "/Blog";
 @page "/Posts";
+@page "/Tag/{Tag}";
 @layout AlbumLayout;
 @inject IJSRuntime JSRuntime;
 @inject NavigationManager NavigationManager;
@@ -13,9 +14,14 @@
         <h1>Chris Grabosky</h1>
         <p class="lead">Father, paintballer, tinkerer, & technology enthusiast</p>
         <p class="lead">Views and thoughts are my own</p>
-        <p>
-            <a href="/Home">Home</a> | 
-            <a href="/Pics">Pics</a>
+        <p class="lead">
+            <span><a href="/Home">Home</a> | </span>
+            @if(Tag != null) {
+              <span><a @onclick="@(e=>NavigationManager.NavigateTo("/Blog", true))" href="#">Blog</a> | </span>
+            } else {
+              <span><a @onclick="@(e=>NavigationManager.NavigateTo("/Tag/conference", true))" href="#">Talks</a> | </span>
+            }
+            <span><a href="/Pics">Pics</a></span>
         </p>
       </div>
     </div>
@@ -25,21 +31,49 @@
   <div class="py-5 bg-light">
     <div class="container">
 
+      @if(Tag != null) {
+        <div class="row">
+          <div class="col">
+            <h2>Viewing @Tag</h2>
+          </div>
+        </div>
+        <div class="row">&nbsp;</div>
+      }
+
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            @if(posts != null) {
-                @foreach(var p in posts) {
-                    <div class="col">
-                      <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="@p.Hero" />
-                        <div class="card-body">
-                          <h5 class="card-title">@p.title</h5>
-                          <p class="card-text">@p.plaintext.Substring(0,50)</p>
-                            <button @onclick="@(e=>NavTo(p._id, p.slug))" class="btn btn-sm btn-gsky">Read more..</button>
-                        </div>
-                      </div>
-                    </div>
+        @if (posts != null)
+        {
+          @foreach (var p in posts)
+          {
+            <div class="col">
+              <div class="card" style="width: 18rem;">
+                @if (p.Hero.Length > 3)
+                {
+                  <img class="card-img-top" src="@p.Hero" />
                 }
-            }
+                <div class="card-body">
+                  <h5 class="card-title">@p.title</h5>
+                  @if (p.plaintext != null)
+                  {
+                    @if (p.plaintext.Length > 50)
+                    {
+                      <p class="card-text">@p.plaintext.Substring(0,50)</p>
+                    }
+                    else
+                    {
+                      <p class="card-text">@p.plaintext</p>
+                    }
+                  }
+                  else
+                  {
+                    <p class="card-text">&nbsp;</p>
+                  }
+                  <button @onclick="@(e=>NavTo(p._id, p.slug))" class="btn btn-sm btn-gsky">Read more..</button>
+                </div>
+              </div>
+            </div>
+          }
+        }
       </div>
 
       <div class="row">&nbsp;</div>
@@ -55,20 +89,37 @@
 </div>
 
 @code {
+    [Parameter]
+    public string Tag {get; set;} = null;
+
     private List<DataModels.Blog> posts = null;
     private bool loginSuccess;
     protected override async Task OnInitializedAsync ()
     {
         loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
 
-        string[] args = {};
-        posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getPosts", args);
+        if(Tag != null) {
+          string[] args = {Tag};
+          posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getTaggedPosts", args);
+        } else {
+          string[] args = {};
+          posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getPosts", args);
+        }
+        
         StateHasChanged();
     }
 
     private async Task More() {
-        string[] args = {posts.LastOrDefault()._id};
-        List<DataModels.Blog> newPosts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getPosts", args);
+      List<DataModels.Blog> newPosts = null;
+
+        if(Tag != null) {
+          string[] args = {Tag, posts.LastOrDefault()._id};
+          newPosts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getTaggedPosts", args);
+        } else {
+          string[] args = {posts.LastOrDefault()._id};
+          newPosts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getPosts", args);
+        }
+        
         posts.AddRange(newPosts);
         StateHasChanged();
     }
