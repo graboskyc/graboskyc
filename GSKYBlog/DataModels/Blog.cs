@@ -8,6 +8,7 @@ namespace GSKYBlog.DataModels {
         public string title {get;set;}
         public string slug {get;set;}
         public string html {get;set;}
+        public string published_at {get;set;}
         public string Body {get {
             return html.Replace("__GHOST_URL__","").Replace("<img src=\"/content/images", "<img src=\"https://gskypublicmedia.s3.amazonaws.com");
         }}

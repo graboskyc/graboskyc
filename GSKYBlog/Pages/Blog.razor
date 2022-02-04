@@ -53,22 +53,15 @@
                 }
                 <div class="card-body">
                   <h5 class="card-title">@p.title</h5>
-                  @if (p.plaintext != null)
+                  @if (p.published_at != null)
                   {
-                    @if (p.plaintext.Length > 50)
-                    {
-                      <p class="card-text">@p.plaintext.Substring(0,50)</p>
-                    }
-                    else
-                    {
-                      <p class="card-text">@p.plaintext</p>
-                    }
+                    <p class="card-text"><span class="oi oi-calendar"></span> @p.published_at.Split(" ")[0]</p>
                   }
                   else
                   {
                     <p class="card-text">&nbsp;</p>
                   }
-                  <button @onclick="@(e=>NavTo(p._id, p.slug))" class="btn btn-sm btn-gsky">Read more..</button>
+                  <p class="card-text"><button @onclick="@(e=>NavTo(p._id, p.slug))" class="btn btn-sm btn-gsky" style="margin:0px !important">Read more..</button></p>
                 </div>
               </div>
             </div>

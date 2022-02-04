@@ -30,7 +30,7 @@
                     <div class="col">
                         <div class="card shadow-sm" @onclick="@(e=>NavTo(p._id))">
                             <img src="https://gskywebstore.blob.core.windows.net/media/@p.path" />
-                            @p.taken_at
+                            <p style="text-align:center;padding:5px;"><span class="oi oi-calendar"></span> @p.taken_at</p>
                         </div>
                     </div>
                 }

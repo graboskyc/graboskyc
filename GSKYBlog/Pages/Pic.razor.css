@@ -30,3 +30,7 @@
   .card {
       place-items: center;
     }
+
+  .picdesc {
+    font-size: 2rem;
+  }
