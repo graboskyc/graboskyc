@@ -85,7 +85,20 @@ body {
     margin:10px;
 }
 
-iframe {
+  iframe {
     width: 100%;
     height: 75vh;
+  }
+
+  figure {
+    text-align: center;
+  }
+
+  .kg-image, .kg-bookmark-thumbnail img {
+      width: 65% !important;
+      text-align: center;
+  }
+
+  .kg-bookmark-thumbnail {
+      width:50% !important;
   }

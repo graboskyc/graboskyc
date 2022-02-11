@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0Bu38nJHOe3u351OCKMt/8YrGdrT6Q6ONCJtbTixAYMujlEAtZ1Ean+E479oyljY4ge8KZ9VSTi9WE2D4MuP/Q==",
+  "dgSpecHash": "M7PJWzWeUdMkLZ30AWAZV5adXuiTYnpWV9KWOV1rciPwoMGohVOYM5IKZcSvSM9WAECF5rs8vaddeVvapvmNMg==",
   "success": true,
   "projectFilePath": "/mnt/c/Users/chris/GITHUB/graboskyc/GSKYBlog/GSKYBlog.csproj",
   "expectedPackageFiles": [
@@ -58,7 +58,7 @@
     "/home/graboskyc/.nuget/packages/system.text.regularexpressions/4.1.0/system.text.regularexpressions.4.1.0.nupkg.sha512",
     "/home/graboskyc/.nuget/packages/system.threading/4.0.11/system.threading.4.0.11.nupkg.sha512",
     "/home/graboskyc/.nuget/packages/system.threading.tasks/4.0.11/system.threading.tasks.4.0.11.nupkg.sha512",
-    "/home/graboskyc/.nuget/packages/microsoft.netcore.app.runtime.mono.browser-wasm/6.0.0/microsoft.netcore.app.runtime.mono.browser-wasm.6.0.0.nupkg.sha512"
+    "/home/graboskyc/.nuget/packages/microsoft.netcore.app.runtime.mono.browser-wasm/6.0.1/microsoft.netcore.app.runtime.mono.browser-wasm.6.0.1.nupkg.sha512"
   ],
   "logs": []
 }
