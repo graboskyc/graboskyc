@@ -102,3 +102,16 @@ body {
   .kg-bookmark-thumbnail {
       width:50% !important;
   }
+
+  ol, ul {
+      margin:2rem;
+  }
+
+  h1 {
+      margin-bottom: 2rem;
+  }
+
+  .gskypostcontent img {
+    width: 65% !important;
+    text-align: center;
+  }
