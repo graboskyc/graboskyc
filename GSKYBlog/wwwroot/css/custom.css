@@ -113,5 +113,13 @@ body {
 
   .gskypostcontent img {
     width: 65% !important;
-    text-align: center;
+    margin: 10px auto 20px;
+    display: block;
+  }
+
+  blockquote {
+    font-style: italic;
+    margin-left: 2rem !important;
+    border-left: thick solid #647687;
+    color: #647687;
   }
