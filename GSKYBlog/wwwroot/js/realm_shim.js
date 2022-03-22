@@ -31,3 +31,14 @@ window.realmShim_Function = async function(fnname, args) {
     console.log(result);
     return result;
 }
+
+function BlazorScrollToId(id) {
+    const element = document.getElementById(id);
+    if (element instanceof HTMLElement) {
+        element.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "nearest"
+        });
+    }
+}
