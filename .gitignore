@@ -6,3 +6,6 @@ RealmExport
 BlogPosts/.env
 ig/hosting/files
 BlogPosts/Images
+IGAppCtr/build.sh
+IGAppCtr/IPApp/bin
+IGAppCtr/IPApp/obj

@@ -1,0 +1,51 @@
+@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager;
+
+<div class="main">
+
+    <div class="content px-4">
+        <div class="ctr_bg">
+
+            <h1 class="page-title">Here's The Kids</h1>
+
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <NavLink class="btn btn-gsky btn-lg" href="/Vids" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span>
+                    </NavLink>
+                </div>
+                <div class="col">
+                    <NavLink class="btn btn-gsky btn-lg" href="/RandomVid">
+                        <span class="oi oi-random" aria-hidden="true"></span>
+                    </NavLink>
+                </div>
+                <div class="col">
+                    <NavLink class="btn btn-gsky btn-lg" href="/Upload">
+                        <span class="oi oi-cloud-upload" aria-hidden="true"></span>
+                    </NavLink>
+                </div>
+                <div class="col"></div>
+            </div>
+            
+            @Body
+
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <NavLink class="btn btn-gsky btn-lg" href="/DateList">
+                        <span class="oi oi-calendar"></span>
+                    </NavLink>
+                </div>
+                <div class="col">
+                    <NavLink class="btn btn-gsky btn-lg" href="/Profile">
+                        <span class="oi oi-person"></span>
+                    </NavLink>
+                </div>
+                <div class="col"></div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

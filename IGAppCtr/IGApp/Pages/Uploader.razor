@@ -1,0 +1,134 @@
+@layout LoginLayout;
+@page "/Uploader";
+@page "/New";
+@inject NavigationManager NavigationManager;
+@inject IJSRuntime JSRuntime;
+@using IGApp.Datamodels;
+@using System.IO;
+@using System.Diagnostics;
+@using Azure.Storage;
+@using Azure.Storage.Blobs;
+
+<div class="ctr_bg" style="background-color:#fff;height:220vh !important;"><div class="ctr_ctr_child ctr_bg">
+    <h1>Upload a Pic</h1>
+
+    <div class="row" style="margin-top:30px;">
+        <div class="col-3">
+            Caption
+        </div>
+        <div class="col-9">
+            <input type="text" @bind="txt_caption" class="form-control" />
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:30px;">
+        <div class="col-3">
+            Location
+        </div>
+        <div class="col-9">
+            <input type="text" @bind="txt_loc" class="form-control" />
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:30px;" >
+        <div class="col-3">
+            Tags
+        </div>
+        <div class="col-9">
+            <input type="text" @bind="txt_tags" class="form-control" />
+        </div>
+    </div>
+        
+    <div class="row" style="margin-top:30px;">
+        <div class="col-3"></div>
+        <div class="col-6">
+
+                <label class="custom-file-label" for="customFile">@selFileTitle</label>
+                <InputFile OnChange="@LoadFiles" class="form-control custom-file-input" id="customFile" />
+        
+        </div>
+        <div class="col-3"></div>
+    </div>
+    
+
+    <div class="row" style="margin-top:30px;">
+        <div class="col-3"></div>
+        <div class="col-6">
+            @if(!isDone) {
+                @if(!isLoading) {
+                    <button class="btn btn-gsky btn-lg">Upload</button>
+                } else {
+                    <button class="btn btn-gsky btn-lg" disabled >
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> 
+                        Uploading...
+                    </button>
+                }
+            } else {
+                <span>DONE!</span>
+            }
+        </div>
+        <div class="col-3"></div>
+    </div>
+
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</div></div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+@code {
+    private RealmUser user = new RealmUser{};
+    private bool isLoading = true;
+    private bool isDone = false;
+    private string selectedPic = null;
+    private string selFileTitle = "Choose Pic";
+
+    private string uploadName;
+    private string txt_loc, txt_caption, txt_tags = "";
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+
+        try {
+            // upload it locally
+            await using FileStream fs = new("/tmp/"+uploadName, FileMode.Create);
+            await e.File.OpenReadStream(500000000).CopyToAsync(fs);
+
+            // now push it to azure
+            string connectionString = Environment.GetEnvironmentVariable("BLOBENDPOINT");
+            string containerName = "media";
+            BlobContainerClient container = new BlobContainerClient(connectionString, containerName);
+            BlobClient blob = container.GetBlobClient("fromctr/"+uploadName);
+            // Upload local file
+            blob.Upload("/tmp/"+uploadName);
+
+            // write to Realm
+            string[] args = {"fromctr/"+uploadName, txt_loc, txt_caption, txt_tags};
+            await JSRuntime.InvokeVoidAsync("realmShim_Function", "newIgPost", args);
+
+            isDone = true;
+        } catch (Exception ex) {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+
+    
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            user = await JSRuntime.InvokeAsync<RealmUser>("getUserDetails");
+            isLoading = true;
+            Guid guid = Guid.NewGuid();
+            uploadName = guid.ToString().ToUpper() + ".jpg";
+            isLoading = false;
+            
+        } catch(Exception ex) {
+            NavigationManager.NavigateTo("/");
+        }
+    }
+}
