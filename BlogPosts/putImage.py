@@ -18,3 +18,4 @@ s3 = session.resource('s3')
 result = s3.Bucket(BUCKET).upload_file(filepath, FOLDER+"/"+filepathSplit[-1],  ExtraArgs={'ACL':'public-read'})
 
 print(result)
+print("Check: https://" + BUCKET +".s3.amazonaws.com/" + FOLDER + "/" + filepathSplit[-1])
