@@ -59,5 +59,6 @@
           BannerImage = post.Hero;
         }
         StateHasChanged();
+        await JSRuntime.InvokeVoidAsync("PrismColorCode");
     }
 }

@@ -42,3 +42,7 @@ function BlazorScrollToId(id) {
         });
     }
 }
+
+window.PrismColorCode = async function() {
+    Prism.highlightAll();
+}

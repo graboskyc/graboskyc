@@ -123,3 +123,8 @@ body {
     border-left: thick solid #647687;
     color: #647687;
   }
+
+
+code{
+    white-space:pre-wrap;
+}
