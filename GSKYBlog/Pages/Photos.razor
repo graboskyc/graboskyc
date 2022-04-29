@@ -1,6 +1,7 @@
 ﻿@page "/pics";
 @page "/photos";
 @page "/ig";
+@page "/pics/{PageNum}";
 @layout AlbumLayout;
 @inject IJSRuntime JSRuntime;
 @inject NavigationManager NavigationManager;
@@ -28,6 +29,7 @@
             @if(pics != null) {
                 @foreach(var p in pics) {
                     <div class="col">
+                        <a id="@p._id" name="@p._id"></a>
                         <div class="card shadow-sm" @onclick="@(e=>NavTo(p._id))">
                             <img src="https://gskywebstore.blob.core.windows.net/media/@p.path" />
                             <p style="text-align:center;padding:5px;"><span class="oi oi-calendar"></span> @p.taken_at</p>
@@ -41,7 +43,7 @@
 
       <div class="row">
         <div class="col">
-          <button class="btn btn-lg btn-gsky" style="margin:0px !important" @onclick=More>More Pics</button>
+          <button class="btn btn-lg btn-gsky" style="margin:0px !important" @onclick=Advance>More Pics</button>
         </div>
       </div>
 
@@ -49,16 +51,53 @@
   </div>
 </div>
 
+<a name="bottomscroller" id="bottomscroller"></a>
+
 @code {
     private List<DataModels.IG> pics = null;
     private bool loginSuccess;
-    protected override async Task OnInitializedAsync ()
-    {
-        loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
+    [Parameter]
+    public string PageNum {get;set;} = null;
 
-        string[] args = {};
-        pics = await JSRuntime.InvokeAsync<List<DataModels.IG>>("realmShim_Function", "getPics", args);
-        StateHasChanged();
+    protected override async Task OnInitializedAsync()  {
+      loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
+
+      string[] args = { };
+      pics = await JSRuntime.InvokeAsync<List<DataModels.IG>>("realmShim_Function", "getPics", args);
+
+      if (PageNum != null)
+      {
+        int pn = Convert.ToInt32(PageNum);
+        while (pn > 1)
+        {
+          await More();
+          pn--;
+        }
+        await JSRuntime.InvokeVoidAsync("BlazorScrollToId", "bottomscroller");
+      }
+      else
+      {
+        PageNum = "1";
+      }
+
+
+      StateHasChanged();
+    }
+
+    private async Task Advance() {
+      await More();
+      int newPage = Convert.ToInt32(PageNum) + 1;
+      PageNum = newPage.ToString();
+      NavigationManager.NavigateTo("/Pics/"+PageNum);
+
+      int offsetScroll = (newPage-1)*12;
+      if(offsetScroll < pics.Count) {
+        await JSRuntime.InvokeVoidAsync("BlazorScrollToId", pics[offsetScroll]._id);
+        await JSRuntime.InvokeVoidAsync("BlazorScrollToId", pics[offsetScroll]._id);
+      } else {
+        await JSRuntime.InvokeVoidAsync("BlazorScrollToId", "bottomscroller");
+        await JSRuntime.InvokeVoidAsync("BlazorScrollToId", "bottomscroller");
+      }
     }
 
     private async Task More() {

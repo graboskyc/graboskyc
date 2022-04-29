@@ -32,7 +32,8 @@ window.realmShim_Function = async function(fnname, args) {
     return result;
 }
 
-function BlazorScrollToId(id) {
+window.BlazorScrollToId = function(id) {
+    console.log("scrolling to " + id);
     const element = document.getElementById(id);
     if (element instanceof HTMLElement) {
         element.scrollIntoView({

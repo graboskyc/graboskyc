@@ -2,6 +2,7 @@
 @page "/Posts";
 @page "/Tag/{Tag}";
 @page "/page/{PageNum}"
+@page "/Blog/{PageNum}"
 @layout AlbumLayout;
 @inject IJSRuntime JSRuntime;
 @inject NavigationManager NavigationManager;
@@ -47,7 +48,8 @@
           @foreach (var p in posts)
           {
             <div class="col">
-              <div class="card gskycard ">
+              <a id="@p._id" name="@p._id"></a>
+              <div class="card gskycard" >
                 @if (p.Hero.Length > 3)
                 {
                   <img class="card-img-top" src="@p.Hero" />
@@ -74,14 +76,16 @@
 
       <div class="row">
         <div class="col">
-          <button class="btn btn-lg btn-gsky" style="margin:0px !important" @onclick=More>More Posts</button>
+          <button class="btn btn-lg btn-gsky" style="margin:0px !important" @onclick=Advance>More Posts</button>
         </div>
       </div>
 
     </div>
   </div>
-  <a name="bottomscroller" id="bottomscroller"></a>
+  
 </div>
+
+<a name="bottomscroller" id="bottomscroller"></a>
 
 @code {
     [Parameter]
@@ -109,10 +113,28 @@
               pn--;
             }
             await JSRuntime.InvokeVoidAsync("BlazorScrollToId", "bottomscroller");
+          } else {
+            PageNum = "1";
           }
         }
         
         StateHasChanged();
+    }
+
+    private async Task Advance() {
+      await More();
+      int newPage = Convert.ToInt32(PageNum) + 1;
+      PageNum = newPage.ToString();
+      NavigationManager.NavigateTo("/Blog/"+PageNum);
+
+      int offsetScroll = (newPage-1)*12;
+      if(offsetScroll < posts.Count) {
+        await JSRuntime.InvokeVoidAsync("BlazorScrollToId", posts[offsetScroll]._id);
+        await JSRuntime.InvokeVoidAsync("BlazorScrollToId", posts[offsetScroll]._id);
+      } else {
+        await JSRuntime.InvokeVoidAsync("BlazorScrollToId", "bottomscroller");
+        await JSRuntime.InvokeVoidAsync("BlazorScrollToId", "bottomscroller");
+      }
     }
 
     private async Task More() {
@@ -127,6 +149,7 @@
         }
         
         posts.AddRange(newPosts);
+        
         StateHasChanged();
     }
 
