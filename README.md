@@ -5,4 +5,4 @@ All views and opinions expressed are my own.
 * [LinkedIn](http://linkedin.com/in/chris-grabosky)
 * [GitHub](https://github.com/graboskyc)
 * [Home Page](http://gsky.us)
-* [Blog](http://grabosky.net)
+* [Blog](https://www.grabosky.net/Blog)
