@@ -1,0 +1,64 @@
+@page "/Post/{PostID}"
+@page "/Post/{PostID}/{Slug}"
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime;
+@using HeyRed.MarkdownSharp;
+@layout AlbumLayout;
+
+<PageTitle>Chris Grabosky's Blog</PageTitle>
+
+<div class="mainheader" style="background-image: url(@BannerImage);">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <img src="assets/2018headshot.jpg" class="img-circle" width="128" height="128" />
+        <h1>Chris Grabosky</h1>
+        <p class="lead">Views and thoughts are my own</p>
+        <p>
+            <a href="/Home">Home</a> | 
+            <a href="/Blog">Blog</a> | 
+            <a href="/Pics">Pics</a> 
+        </p>
+      </div>
+    </div>
+</div>
+
+<div class="container">
+  <div class="py-5 bg-light">
+    <div class="container" style="padding-left: 5vw !important; padding-right: 5vw !important;">
+
+      <div class="row gskypostcontent">
+            @if(post != null) {
+                <h1>@post.title</h1>
+                @PostBody
+            }     
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+    [Parameter]
+    public string PostID {get; set;}
+
+    [Parameter] 
+    public string Slug {get; set;}
+    private DataModels.Blog post = null;
+    private MarkupString PostBody;
+    Markdown mark = new Markdown();
+    private string BannerImage = "/assets/BGs/bg1.jpg";
+
+    private bool loginSuccess;
+    protected override async Task OnInitializedAsync ()
+    {
+        loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
+
+        string[] args = {PostID};
+        post = await JSRuntime.InvokeAsync<DataModels.Blog>("realmShim_Function", "getPost", args);
+        PostBody = (MarkupString)mark.Transform(post.Body);
+        if(post.feature_image != null) {
+          BannerImage = post.Hero;
+        }
+        StateHasChanged();
+        await JSRuntime.InvokeVoidAsync("PrismColorCode");
+    }
+}

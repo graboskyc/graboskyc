@@ -1,0 +1,65 @@
+@page "/Pic/{PicID}"
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime;
+@layout AlbumLayout;
+
+<PageTitle>Chris Grabosky's Photos</PageTitle>
+
+<div class="mainheader">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1>Photos</h1>
+        <p class="lead">An export of Chris Grabosky (graboskyc) Instagram profile</p>
+        <p class="lead">
+            <a href="/Home">Home</a> | 
+            <a href="/Blog">Blog</a> | 
+            <a href="/Pics">Pics</a> 
+        </p>
+      </div>
+    </div>
+</div>
+
+<div class="container">
+  <div class="py-5 bg-light">
+    <div class="container">
+
+      <div class="row ">
+            @if(pic != null) {
+                <div class="card shadow-sm">
+                    <img src="https://gskywebstore.blob.core.windows.net/media/@pic.path" style="width:75%" />
+                    @if(pic.caption != null) {
+                      <p class="picdesc"><span class="oi oi-justify-left"></span> @pic.caption</p>
+                    }
+                    @if(pic.location != null) {
+                      <p class="picdesc"><span class="oi oi-location"></span> @pic.location</p>
+                    }
+                    @if(pic.tags != null) {
+                      <p class="picdesc"><span class="oi oi-rss"></span>
+                        @string.Join(", ", pic.tags)
+                      </p>
+                    }
+                    @if(pic.taken_at != null) {
+                      <p class="picdesc"><span class="oi oi-calendar"></span> @pic.taken_at.Split("T")[0]</p>
+                    }
+                </div>
+            }     
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+    [Parameter]
+    public string PicID {get; set;}
+    private DataModels.IG pic = null;
+
+    private bool loginSuccess;
+    protected override async Task OnInitializedAsync ()
+    {
+        loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
+
+        string[] args = {PicID};
+        pic = await JSRuntime.InvokeAsync<DataModels.IG>("realmShim_Function", "getPic", args);
+        StateHasChanged();
+    }
+}

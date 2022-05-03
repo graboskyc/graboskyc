@@ -1,4 +1,11 @@
-
-.DS_Store
-new.html
-images/icon_instagram_old.png
+GSKYBlog/bin
+GSKYBlog/obj
+Untitled-1.js
+Export
+RealmExport
+BlogPosts/.env
+ig/hosting/files
+BlogPosts/Images
+IGAppCtr/build.sh
+IGAppCtr/IPApp/bin
+IGAppCtr/IPApp/obj

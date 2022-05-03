@@ -1,0 +1,86 @@
+{
+  "format": 1,
+  "restore": {
+    "/mnt/c/Users/chris/GITHUB/graboskyc/GSKYBlog/GSKYBlog.csproj": {}
+  },
+  "projects": {
+    "/mnt/c/Users/chris/GITHUB/graboskyc/GSKYBlog/GSKYBlog.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/mnt/c/Users/chris/GITHUB/graboskyc/GSKYBlog/GSKYBlog.csproj",
+        "projectName": "GSKYBlog",
+        "projectPath": "/mnt/c/Users/chris/GITHUB/graboskyc/GSKYBlog/GSKYBlog.csproj",
+        "packagesPath": "/home/graboskyc/.nuget/packages/",
+        "outputPath": "/mnt/c/Users/chris/GITHUB/graboskyc/GSKYBlog/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/graboskyc/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Markdown": {
+              "target": "Package",
+              "version": "[2.2.1, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly.DevServer": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
+              "version": "[6.0.1, 6.0.1]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "browser-wasm": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,130 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+:root {
+    --gsky-bg-primary: #647687;
+    --gsky-bg-secondary: #1ba1e2;
+    --gsky-white: #ffffff;
+    --gsky-globalsize: 3rem;
+}
+
+@keyframes ctr_spin_rotation {
+    from { transform: rotateY(0deg) }
+    to { transform: rotateY(360deg) }
+}
+
+body {
+    background-color: var(--gsky-bg-primary);
+  }
+
+
+.main {
+    background-color: var(--gsky-white);
+}
+
+.aniloader {
+    animation: ctr_spin_rotation 2s infinite linear;
+    display:block;
+    background-color: var(--gsky-white);
+    border-radius: 100px; 
+    padding:50px;
+    height:50vh;
+    margin-top:25vh;
+}
+
+.loader {
+    display:block;
+    background-color: var(--gsky-white);
+    border-radius: 100px; 
+    padding:50px;
+    height:80vh;
+    margin-top:10vh;
+    min-width: 100%;
+    place-items: center;
+    display: grid;
+}
+
+.ctr_spin_parent {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    resize: both;
+    overflow: hidden;
+    height:100vh;
+    background-color: var(--gsky-bg-secondary);
+}
+.ctr_spin_child {
+    padding:1rem;
+    border-radius: 5px;
+    font-size: 2rem;
+    text-align: center;
+    height:100vh;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+.btn-gsky {
+    background-color: var(--gsky-bg-primary);
+    color: #ffffff;
+    width: 100%;
+    margin:10px;
+}
+
+  iframe {
+    width: 100%;
+    height: 75vh;
+  }
+
+  figure {
+    text-align: center;
+  }
+
+  .kg-image, .kg-bookmark-thumbnail img {
+      width: 65% !important;
+      text-align: center;
+  }
+
+  .kg-bookmark-thumbnail {
+      width:50% !important;
+  }
+
+  ol, ul {
+      margin:2rem;
+  }
+
+  h1 {
+      margin-bottom: 2rem;
+  }
+
+  .gskypostcontent img {
+    width: 65% !important;
+    margin: 10px auto 20px;
+    display: block;
+  }
+
+  blockquote {
+    font-style: italic;
+    margin-left: 2rem !important;
+    border-left: thick solid #647687;
+    color: #647687;
+  }
+
+
+code{
+    white-space:pre-wrap;
+}

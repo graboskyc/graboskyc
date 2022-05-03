@@ -1,0 +1,159 @@
+﻿@page "/Blog";
+@page "/Posts";
+@page "/Tag/{Tag}";
+@page "/page/{PageNum}"
+@page "/Blog/{PageNum}"
+@layout AlbumLayout;
+@inject IJSRuntime JSRuntime;
+@inject NavigationManager NavigationManager;
+
+<PageTitle>Chris Grabosky's Blog</PageTitle>
+
+<div class="mainheader">
+    <div class="row py-lg-5 masthead">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <img src="assets/2018headshot.jpg" class="img-circle" width="128" height="128" />
+        <h1>Chris Grabosky</h1>
+        <p class="lead">Father, paintballer, tinkerer, & technology enthusiast</p>
+        <p class="lead">Views and thoughts are my own</p>
+        <p class="lead">
+            <span><a href="/Home">Home</a> | </span>
+            @if(Tag != null) {
+              <span><a @onclick="@(e=>NavigationManager.NavigateTo("/Blog", true))" href="#">Blog</a> | </span>
+            } else {
+              <span><a @onclick="@(e=>NavigationManager.NavigateTo("/Tag/conference", true))" href="#">Talks</a> | </span>
+            }
+            <span><a href="/Pics">Pics</a></span>
+        </p>
+      </div>
+    </div>
+</div>
+
+<div class="container">
+  <div class="py-5 bg-light">
+    <div class="container">
+
+      @if(Tag != null) {
+        <div class="row">
+          <div class="col">
+            <h2>Viewing @Tag</h2>
+          </div>
+        </div>
+        <div class="row">&nbsp;</div>
+      }
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        @if (posts != null)
+        {
+          @foreach (var p in posts)
+          {
+            <div class="col">
+              <a id="@p._id" name="@p._id"></a>
+              <div class="card gskycard" >
+                @if (p.Hero.Length > 3)
+                {
+                  <img class="card-img-top" src="@p.Hero" />
+                }
+                <div class="card-body">
+                  <h5 class="card-title">@p.title</h5>
+                  @if (p.published_at != null)
+                  {
+                    <p class="card-text"><span class="oi oi-calendar"></span> @p.published_at.Split(" ")[0]</p>
+                  }
+                  else
+                  {
+                    <p class="card-text">&nbsp;</p>
+                  }
+                  <p class="card-text"><button @onclick="@(e=>NavTo(p._id, p.slug))" class="btn btn-sm btn-gsky" style="margin:0px !important">Read more..</button></p>
+                </div>
+              </div>
+            </div>
+          }
+        }
+      </div>
+
+      <div class="row">&nbsp;</div>
+
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-lg btn-gsky" style="margin:0px !important" @onclick=Advance>More Posts</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+</div>
+
+<a name="bottomscroller" id="bottomscroller"></a>
+
+@code {
+    [Parameter]
+    public string Tag {get; set;} = null;
+    [Parameter]
+    public string PageNum {get;set;} = null;
+
+    private List<DataModels.Blog> posts = null;
+    private bool loginSuccess;
+    protected override async Task OnInitializedAsync ()
+    {
+        loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
+
+        if(Tag != null) {
+          string[] args = {Tag};
+          posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getTaggedPosts", args);
+        } else {
+          string[] args = {};
+          posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getPosts", args);
+          
+          if(PageNum != null) {
+            int pn = Convert.ToInt32(PageNum);
+            while(pn > 1) {
+              await More();
+              pn--;
+            }
+            await JSRuntime.InvokeVoidAsync("BlazorScrollToId", "bottomscroller");
+          } else {
+            PageNum = "1";
+          }
+        }
+        
+        StateHasChanged();
+    }
+
+    private async Task Advance() {
+      await More();
+      int newPage = Convert.ToInt32(PageNum) + 1;
+      PageNum = newPage.ToString();
+      NavigationManager.NavigateTo("/Blog/"+PageNum);
+
+      int offsetScroll = (newPage-1)*12;
+      if(offsetScroll < posts.Count) {
+        await JSRuntime.InvokeVoidAsync("BlazorScrollToId", posts[offsetScroll]._id);
+        await JSRuntime.InvokeVoidAsync("BlazorScrollToId", posts[offsetScroll]._id);
+      } else {
+        await JSRuntime.InvokeVoidAsync("BlazorScrollToId", "bottomscroller");
+        await JSRuntime.InvokeVoidAsync("BlazorScrollToId", "bottomscroller");
+      }
+    }
+
+    private async Task More() {
+      List<DataModels.Blog> newPosts = null;
+
+        if(Tag != null) {
+          string[] args = {Tag, posts.LastOrDefault()._id};
+          newPosts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getTaggedPosts", args);
+        } else {
+          string[] args = {posts.LastOrDefault()._id};
+          newPosts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getPosts", args);
+        }
+        
+        posts.AddRange(newPosts);
+        
+        StateHasChanged();
+    }
+
+    private async Task NavTo(string id, string slug) {
+        NavigationManager.NavigateTo("/Post/"+@id+"/"+slug);
+    }
+}

@@ -1,0 +1,20 @@
+.img-circle {
+    margin-bottom:20px !important;
+    border:5px solid #1F1F1F;
+    border-radius:50%;
+  }
+  
+  #pichead p {
+    text-decoration: underline;
+    padding: 2px;
+    text-shadow: 2px 2px #1F1F1F;
+  }
+  
+  p {
+    text-shadow: 2px 2px #1F1F1F;
+    color: #fff;
+  }
+
+  h1 {
+    color:#fff;
+  }

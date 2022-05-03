@@ -1,0 +1,39 @@
+.mainheader {
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center center;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .mainheader h1{
+    text-shadow: 2px 2px #fff;
+    color: #1F1F1F;
+  }
+  
+  .mainheader p{
+    text-shadow: 2px 2px #fff;
+    color: #1F1F1F;
+  }
+
+  .mainheader p a{
+    text-shadow: 2px 2px #fff;
+    color: #1F1F1F;
+  }
+
+  .img-circle {
+    margin-bottom:20px !important;
+    border:5px solid #1F1F1F;
+    border-radius:50%;
+  }
+  figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+}
+iframe {
+  width: 100%;
+  height: 75vh;
+}
