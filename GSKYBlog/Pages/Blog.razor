@@ -17,13 +17,13 @@
         <p class="lead">Father, paintballer, tinkerer, & technology enthusiast</p>
         <p class="lead">Views and thoughts are my own</p>
         <p class="lead">
-            <span><a href="/Home">Home</a> | </span>
+            <a href="/Home"><i class="cil-home" title="Home"></i></a>
             @if(Tag != null) {
-              <span><a @onclick="@(e=>NavigationManager.NavigateTo("/Blog", true))" href="#">Blog</a> | </span>
+              <a @onclick="@(e=>NavigationManager.NavigateTo("/Blog", true))" href="#" style="margin-left:5px;margin-right:5px;"><i class="cil-notes" title="Blog"></i></a>
             } else {
-              <span><a @onclick="@(e=>NavigationManager.NavigateTo("/Tag/conference", true))" href="#">Talks</a> | </span>
+              <a @onclick="@(e=>NavigationManager.NavigateTo("/Tag/conference", true))" href="#" style="margin-left:5px;margin-right:5px;"><i class="cil-speech" title="Blog"></i></a>
             }
-            <span><a href="/Pics">Pics</a></span>
+            <a href="/Pics"><i class="cil-camera" title="Pictures"></i></a>
         </p>
       </div>
     </div>

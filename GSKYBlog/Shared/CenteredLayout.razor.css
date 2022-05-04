@@ -26,7 +26,7 @@
   }
 
   .ctr_top {
-    font-size: 2rem;
+    font-size: 3rem;
     text-align: center;
     top: 3vh;
     position: absolute;
@@ -37,4 +37,11 @@
   .ctr_top a {
     padding: 5px;
     background-color: #1F1F1F;
+    color:#fff;
+    text-decoration:none;
   }
+
+  .ctr_top a i {
+    vertical-align: text-top !important;
+  }
+  

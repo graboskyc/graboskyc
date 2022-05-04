@@ -128,3 +128,16 @@ body {
 code{
     white-space:pre-wrap;
 }
+
+.lead a {
+    padding: 5px;
+    background-color: #1F1F1F;
+    color:#fff;
+    text-decoration:none;
+    font-size: 2rem;
+  }
+
+  .lead a i {
+    vertical-align: text-top !important;
+  }
+  
