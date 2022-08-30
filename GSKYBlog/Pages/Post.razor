@@ -28,8 +28,13 @@
 
       <div class="row gskypostcontent">
             @if(post != null) {
+              @if(post.type == "tweet") {
+                <h1 style="text-align:center;font-size:72px;font-style:italic;background-image:url('/assets/icons/Quotation-Marks-256.png');background-repeat:no-repeat;background-size:5%;padding:20px;">@post.title</h1>
+                <p style="text-align:center;font-size:16px;margin-top:72px;"><span class="oi oi-calendar"></span> @post.published_at.Split(" ")[0]</p>
+              } else {
                 <h1>@post.title</h1>
                 @PostBody
+              }
             }     
       </div>
     </div>
@@ -54,7 +59,9 @@
 
         string[] args = {PostID};
         post = await JSRuntime.InvokeAsync<DataModels.Blog>("realmShim_Function", "getPost", args);
-        PostBody = (MarkupString)mark.Transform(post.Body);
+        if(post.type != "tweet") {
+          PostBody = (MarkupString)mark.Transform(post.Body);
+        }
         if(post.feature_image != null) {
           BannerImage = post.Hero;
         }

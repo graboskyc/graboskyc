@@ -1,0 +1,84 @@
+@layout LoginLayout;
+@page "/Tweet";
+@inject NavigationManager NavigationManager;
+@inject IJSRuntime JSRuntime;
+@using IGApp.Datamodels;
+
+<div class="ctr_bg" style="background-color:#fff;height:220vh !important;"><div class="ctr_ctr_child ctr_bg">
+    <h1>Send a short Micro Blog Post</h1>
+    <h2><i>This is def not a tweet or a truth...</i></h2>
+    <h2><a href="/Uploader">IG Instead</a></h2>
+
+    <div class="row" style="margin-top:30px;">
+        <div class="col-3">
+            Text
+        </div>
+        <div class="col-9">
+            <textarea rows="6" @bind="txt"  class="form-control" />
+        </div>
+    </div>
+    
+
+    <div class="row" style="margin-top:30px;">
+        <div class="col-3"></div>
+        <div class="col-6">
+            @if(!isDone) {
+                @if(!isLoading) {
+                    <button class="btn btn-gsky btn-lg" @onclick="Upload">Send</button>
+                } else {
+                    <button class="btn btn-gsky btn-lg" disabled >
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> 
+                        Sending...
+                    </button>
+                }
+            } else {
+                <span>DONE!</span>
+            }
+        </div>
+        <div class="col-3"></div>
+    </div>
+
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</div></div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+@code {
+    private RealmUser user = new RealmUser{};
+    private bool isLoading = true;
+    private bool isDone = false;
+    private string uploadName;
+    private string txt = "";
+
+    private async Task Upload()
+    {
+        isLoading = true;
+
+        try {
+            // write to Realm
+            string[] args = {txt};
+            await JSRuntime.InvokeVoidAsync("realmShim_Function", "newTweet", args);
+
+            isDone = true;
+        } catch (Exception ex) {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+
+    
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            user = await JSRuntime.InvokeAsync<RealmUser>("getUserDetails");
+            isLoading = false;
+            
+        } catch(Exception ex) {
+            NavigationManager.NavigateTo("/");
+        }
+    }
+}

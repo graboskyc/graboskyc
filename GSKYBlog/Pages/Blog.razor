@@ -49,24 +49,47 @@
           {
             <div class="col">
               <a id="@p._id" name="@p._id"></a>
-              <div class="card gskycard" >
-                @if (p.Hero.Length > 3)
-                {
-                  <img class="card-img-top" src="@p.Hero" />
-                }
-                <div class="card-body">
-                  <h5 class="card-title">@p.title</h5>
-                  @if (p.published_at != null)
-                  {
-                    <p class="card-text"><span class="oi oi-calendar"></span> @p.published_at.Split(" ")[0]</p>
-                  }
-                  else
-                  {
-                    <p class="card-text">&nbsp;</p>
-                  }
-                  <p class="card-text"><button @onclick="@(e=>NavTo(p._id, p.slug))" class="btn btn-sm btn-gsky" style="margin:0px !important">Read more..</button></p>
+
+              @if(p.type == "tweet") {
+                <!-- Its a tweet post -->
+                <div class="card gskytweet" style="min-height:412px !important;background-image:url('/assets/icons/Quotation-Marks-256.png');background-repeat:no-repeat;background-size:20%">
+                  <div class="card-body">
+                    <h5 class="card-title" style="margin: 0; position: absolute; top: 45%; transform: translateY(-50%);font-style:italic;">@p.title</h5>
+                    <div style="bottom:15px;position:absolute;width:90%">
+                      @if (p.published_at != null)
+                      {
+                        <p class="card-text"><span class="oi oi-calendar"></span> @p.published_at.Split(" ")[0]</p>
+                      }
+                      else
+                      {
+                        <p class="card-text">&nbsp;</p>
+                      }
+                      <p class="card-text"><button @onclick="@(e=>NavTo(p._id, p.title))" class="btn btn-sm btn-gsky" style="margin:0px !important">Permalink</button></p>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              } else {
+                <!-- Its a blog post -->
+                <div class="card gskycard" >
+                  @if (p.Hero.Length > 3)
+                  {
+                    <img class="card-img-top" src="@p.Hero" />
+                  }
+                  <div class="card-body">
+                    <h5 class="card-title">@p.title</h5>
+                    @if (p.published_at != null)
+                    {
+                      <p class="card-text"><span class="oi oi-calendar"></span> @p.published_at.Split(" ")[0]</p>
+                    }
+                    else
+                    {
+                      <p class="card-text">&nbsp;</p>
+                    }
+                    <p class="card-text"><button @onclick="@(e=>NavTo(p._id, p.slug))" class="btn btn-sm btn-gsky" style="margin:0px !important">Read more..</button></p>
+                  </div>
+                </div>
+              }
+
             </div>
           }
         }
@@ -104,7 +127,7 @@
           posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getTaggedPosts", args);
         } else {
           string[] args = {};
-          posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getPosts", args);
+          posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getPostsAndTweets", args);
           
           if(PageNum != null) {
             int pn = Convert.ToInt32(PageNum);
