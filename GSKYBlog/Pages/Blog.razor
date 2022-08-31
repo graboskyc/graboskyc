@@ -21,7 +21,8 @@
             @if(Tag != null) {
               <a @onclick="@(e=>NavigationManager.NavigateTo("/Blog", true))" href="#" style="margin-left:5px;margin-right:5px;"><i class="cil-notes" title="Blog"></i></a>
             } else {
-              <a @onclick="@(e=>NavigationManager.NavigateTo("/Tag/conference", true))" href="#" style="margin-left:5px;margin-right:5px;"><i class="cil-speech" title="Blog"></i></a>
+              <a @onclick="@(e=>NavigationManager.NavigateTo("/Tag/tweet", true))" href="#" style="margin-left:5px;"><i class="cil-send" title="Epigrams"></i></a>
+              <a @onclick="@(e=>NavigationManager.NavigateTo("/Tag/conference", true))" href="#" style="margin-right:5px;"><i class="cil-voice-over-record" title="Talks"></i></a>
             }
             <a href="/Pics"><i class="cil-camera" title="Pictures"></i></a>
         </p>
@@ -36,7 +37,12 @@
       @if(Tag != null) {
         <div class="row">
           <div class="col">
-            <h2>Viewing @Tag</h2>
+            @if(Tag == "tweet") {
+              <h2>Viewing Epigrams</h2>
+              <h2 style="font-size:20px;"><i>Definitely not Tweets or Truths or Posts...</i></h2>
+            } else {
+              <h2>Viewing @Tag</h2>
+            }
           </div>
         </div>
         <div class="row">&nbsp;</div>
