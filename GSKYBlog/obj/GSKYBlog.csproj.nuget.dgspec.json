@@ -1,25 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/mnt/c/Users/chris/GITHUB/graboskyc/GSKYBlog/GSKYBlog.csproj": {}
+    "C:\\Users\\chris\\GITHUB\\graboskyc\\GSKYBlog\\GSKYBlog.csproj": {}
   },
   "projects": {
-    "/mnt/c/Users/chris/GITHUB/graboskyc/GSKYBlog/GSKYBlog.csproj": {
+    "C:\\Users\\chris\\GITHUB\\graboskyc\\GSKYBlog\\GSKYBlog.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/c/Users/chris/GITHUB/graboskyc/GSKYBlog/GSKYBlog.csproj",
+        "projectUniqueName": "C:\\Users\\chris\\GITHUB\\graboskyc\\GSKYBlog\\GSKYBlog.csproj",
         "projectName": "GSKYBlog",
-        "projectPath": "/mnt/c/Users/chris/GITHUB/graboskyc/GSKYBlog/GSKYBlog.csproj",
-        "packagesPath": "/home/graboskyc/.nuget/packages/",
-        "outputPath": "/mnt/c/Users/chris/GITHUB/graboskyc/GSKYBlog/obj/",
+        "projectPath": "C:\\Users\\chris\\GITHUB\\graboskyc\\GSKYBlog\\GSKYBlog.csproj",
+        "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\chris\\GITHUB\\graboskyc\\GSKYBlog\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/graboskyc/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -50,6 +57,18 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.0, )"
+            },
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.100-1.23062.2, )",
+              "autoReferenced": true
+            },
+            "Microsoft.NET.Sdk.WebAssembly.Pack": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0-preview.4.23259.5, )",
+              "autoReferenced": true
             }
           },
           "imports": [
@@ -58,14 +77,15 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
           "downloadDependencies": [
             {
               "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
-              "version": "[6.0.1, 6.0.1]"
+              "version": "[6.0.16, 6.0.16]"
             }
           ],
           "frameworkReferences": {
@@ -73,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-preview.4.23260.5\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

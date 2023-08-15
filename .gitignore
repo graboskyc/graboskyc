@@ -9,3 +9,13 @@ BlogPosts/Images
 IGAppCtr/build.sh
 IGAppCtr/IPApp/bin
 IGAppCtr/IPApp/obj
+GSKYBlog/obj
+GSKYBlog/obj/GSKYBlog.csproj.nuget.dgspec.json
+GSKYBlog/obj/GSKYBlog.csproj.nuget.g.props
+GSKYBlog/obj/GSKYBlog.csproj.nuget.g.targets
+GSKYBlog/obj/project.assets.json
+GSKYBlog/obj/project.nuget.cache
+IGAppCtr/IGApp/obj
+IGAppCtr/IGApp/bin
+BlogPosts/Content
+IGAppCtr/IGApp/obj/Debug/net6.0/IGApp.assets.cache

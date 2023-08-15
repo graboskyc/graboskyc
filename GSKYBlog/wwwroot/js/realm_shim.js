@@ -47,3 +47,39 @@ window.BlazorScrollToId = function(id) {
 window.PrismColorCode = async function() {
     Prism.highlightAll();
 }
+
+var globalGlobe = null;
+
+window.buildGlobe = async function() {
+    await login();
+
+    var container = document.getElementById( 'ctr_globe' );
+
+    // Make the globe
+    globalGlobe = new DAT.Globe( container , {imgDir: "/assets/"});
+
+    var datapoints = await realmShim_Function("getFlights", []);
+
+    var series = [];
+
+    datapoints.forEach((element) => {
+        series.push(element["Lat"]);
+        series.push(element["Lon"]);
+        series.push(element["Count"]);
+    });
+
+    //var graphable = ["Flights", series];
+
+    globalGlobe.addData(series, {format: 'magnitude', name: "Flights"} );
+
+    globalGlobe.createPoints();
+
+    // Begin animation
+    globalGlobe.animate();
+    setTimeout(function(){rot ();}, 2000);
+}
+
+function rot() {
+    globalGlobe.grabTurn(5);
+    setTimeout(function(){rot();}, 100);
+}

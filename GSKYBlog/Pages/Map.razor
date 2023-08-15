@@ -1,0 +1,20 @@
+﻿@page "/Map";
+@layout BlankLayout;
+@inject IJSRuntime JSRuntime;
+
+<PageTitle>Chris Grabosky's Flights</PageTitle>
+
+<div id="ctr_globe"></div>
+
+@code {
+    private List<DataModels.Flight> flights = null;
+    private bool loginSuccess;
+    protected override async Task OnInitializedAsync ()
+    {
+        loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
+
+        await JSRuntime.InvokeVoidAsync("buildGlobe");
+    }
+
+
+}
