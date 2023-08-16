@@ -20,3 +20,6 @@
     vertical-align: text-top !important;
   }
   
+  .ctr_top > p {
+    color: #fff;
+  }
