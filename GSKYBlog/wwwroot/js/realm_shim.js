@@ -59,13 +59,29 @@ window.buildGlobe = async function() {
     globalGlobe = new DAT.Globe( container , {imgDir: "/assets/"});
 
     var datapoints = await realmShim_Function("getFlights", []);
+    var min = 999999999;
+    var max = 0;
+
+    // normalize
+    datapoints.forEach((element) => {
+        if(element["Count"]> max) {
+            max = element["Count"];
+        }
+        if(element["Count"]< min) {
+            min = element["Count"];
+        }
+    });
 
     var series = [];
 
     datapoints.forEach((element) => {
-        series.push(element["Lat"]);
-        series.push(element["Lon"]);
-        series.push(element["Count"]);
+        // ignore philly my home airport
+        if(element["Code"] != "PHL") {
+            series.push(element["Lat"]);
+            series.push(element["Lon"]);
+            //series.push(element["Count"]);
+            series.push(((element["Count"] - min) / (max - min)));
+        }
     });
 
     //var graphable = ["Flights", series];
@@ -80,6 +96,6 @@ window.buildGlobe = async function() {
 }
 
 function rot() {
-    globalGlobe.grabTurn(5);
+    globalGlobe.grabTurn(-5);
     setTimeout(function(){rot();}, 100);
 }
