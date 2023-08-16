@@ -62,13 +62,20 @@ window.buildGlobe = async function() {
     var min = 999999999;
     var max = 0;
 
+    var PHL = {};
+
     // normalize
     datapoints.forEach((element) => {
-        if(element["Count"]> max) {
-            max = element["Count"];
-        }
-        if(element["Count"]< min) {
-            min = element["Count"];
+        // ignore philly my home airport
+        if(element["Code"] != "PHL") {
+            if(element["Count"]> max) {
+                max = element["Count"];
+            }
+            if(element["Count"]< min) {
+                min = element["Count"];
+            }
+        } else {
+            PHL = element;
         }
     });
 
@@ -83,6 +90,11 @@ window.buildGlobe = async function() {
             series.push(((element["Count"] - min) / (max - min)));
         }
     });
+
+    // now add back in philly but just make line max non-philly
+    series.push(PHL["Lat"]);
+    series.push(PHL["Lon"]);
+    series.push(1);
 
     //var graphable = ["Flights", series];
 
