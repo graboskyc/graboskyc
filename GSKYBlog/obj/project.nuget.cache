@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2voBffuTowBqg7T6SFOx7aFEP0JEl0lmdFz9s6+AxP/r0WjNMJYofhRsLg0xKRqXVIN13JwXjNNNja3LzLplqg==",
+  "dgSpecHash": "akLCQdPlIQII64N7jCYa9VEgWlJx9eVWZzk0VBdofZ0EcRV2K41O4a0MvP3KQjf+ulml2I6HBcH3O0MjMegD1A==",
   "success": true,
   "projectFilePath": "C:\\Users\\chris\\GITHUB\\graboskyc\\GSKYBlog\\GSKYBlog.csproj",
   "expectedPackageFiles": [
@@ -29,8 +29,9 @@
     "C:\\Users\\chris\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\microsoft.jsinterop\\6.0.0\\microsoft.jsinterop.6.0.0.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\microsoft.jsinterop.webassembly\\6.0.0\\microsoft.jsinterop.webassembly.6.0.0.nupkg.sha512",
-    "C:\\Users\\chris\\.nuget\\packages\\microsoft.net.illink.tasks\\7.0.100-1.23062.2\\microsoft.net.illink.tasks.7.0.100-1.23062.2.nupkg.sha512",
-    "C:\\Users\\chris\\.nuget\\packages\\microsoft.net.sdk.webassembly.pack\\8.0.0-preview.4.23259.5\\microsoft.net.sdk.webassembly.pack.8.0.0-preview.4.23259.5.nupkg.sha512",
+    "C:\\Users\\chris\\.nuget\\packages\\microsoft.net.illink.analyzers\\7.0.100-1.23211.1\\microsoft.net.illink.analyzers.7.0.100-1.23211.1.nupkg.sha512",
+    "C:\\Users\\chris\\.nuget\\packages\\microsoft.net.illink.tasks\\7.0.100-1.23211.1\\microsoft.net.illink.tasks.7.0.100-1.23211.1.nupkg.sha512",
+    "C:\\Users\\chris\\.nuget\\packages\\microsoft.net.sdk.webassembly.pack\\8.0.0-preview.7.23375.6\\microsoft.net.sdk.webassembly.pack.8.0.0-preview.7.23375.6.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\microsoft.netcore.platforms\\1.0.1\\microsoft.netcore.platforms.1.0.1.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\microsoft.netcore.targets\\1.0.1\\microsoft.netcore.targets.1.0.1.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\runtime.any.system.collections\\4.0.11\\runtime.any.system.collections.4.0.11.nupkg.sha512",
@@ -60,7 +61,10 @@
     "C:\\Users\\chris\\.nuget\\packages\\system.text.regularexpressions\\4.1.0\\system.text.regularexpressions.4.1.0.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\system.threading\\4.0.11\\system.threading.4.0.11.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\system.threading.tasks\\4.0.11\\system.threading.tasks.4.0.11.nupkg.sha512",
-    "C:\\Users\\chris\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\6.0.16\\microsoft.netcore.app.runtime.mono.browser-wasm.6.0.16.nupkg.sha512"
+    "C:\\Users\\chris\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.20\\microsoft.netcore.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\chris\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.20\\microsoft.windowsdesktop.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\chris\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.20\\microsoft.aspnetcore.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\chris\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\6.0.21\\microsoft.netcore.app.runtime.mono.browser-wasm.6.0.21.nupkg.sha512"
   ],
   "logs": []
 }
