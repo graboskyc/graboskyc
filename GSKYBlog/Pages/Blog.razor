@@ -185,6 +185,6 @@
 
     private async Task NavTo(string id, string slug) {
       string newSlug = (slug.Length < 30) ? slug : slug.Substring(0, 30);
-      NavigationManager.NavigateTo("/Post/"+@id+"/"+newSlug.Replace(" ","-").Replace("/","").Replace(".",""));
+      NavigationManager.NavigateTo("/Post/"+@id+"/"+newSlug.Replace(" ","-").Replace("/","").Replace(".","").Replace("%",""));
     }
 }
