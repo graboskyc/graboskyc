@@ -19,10 +19,10 @@
         <p class="lead">
             <a href="/Home"><i class="cil-home" title="Home"></i></a>
             @if(Tag != null) {
-              <a @onclick="@(e=>NavigationManager.NavigateTo("/Blog", true))" href="#" style="margin-left:5px;margin-right:5px;"><i class="cil-notes" title="Blog"></i></a>
+              <a href="/Blog" style="margin-left:5px;margin-right:5px;"><i class="cil-notes" title="Blog"></i></a>
             } else {
-              <a @onclick="@(e=>NavigationManager.NavigateTo("/Tag/tweet", true))" href="#" style="margin-left:5px;"><i class="cil-send" title="Epigrams"></i></a>
-              <a @onclick="@(e=>NavigationManager.NavigateTo("/Tag/conference", true))" href="#" style="margin-right:5px;"><i class="cil-voice-over-record" title="Talks"></i></a>
+              <a href="/Tag/tweet" style="margin-left:5px;"><i class="cil-send" title="Epigrams"></i></a>
+              <a href="/Tag/conference" style="margin-right:5px;"><i class="cil-voice-over-record" title="Talks"></i></a>
             }
             <a href="/Pics"><i class="cil-camera" title="Pictures"></i></a>
             <a href="/Map"><i class="cil-map" title="Flights"></i></a>
@@ -125,30 +125,40 @@
 
     private List<DataModels.Blog> posts = null;
     private bool loginSuccess;
-    protected override async Task OnInitializedAsync ()
-    {
-        loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
+    protected override async Task OnInitializedAsync () {
+      PageNum = null;
+      await LoadData();
+    }
 
-        if(Tag != null) {
-          string[] args = {Tag};
-          posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getTaggedPosts", args);
-        } else {
-          string[] args = {};
-          posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getPostsAndTweets", args);
-          
-          if(PageNum != null) {
-            int pn = Convert.ToInt32(PageNum);
-            while(pn > 1) {
-              await More();
-              pn--;
-            }
-            await JSRuntime.InvokeVoidAsync("BlazorScrollToId", "bottomscroller");
-          } else {
-            PageNum = "1";
-          }
-        }
+    protected override async Task OnParametersSetAsync() {
+      await LoadData();
+    }
+
+    private async Task LoadData() {
+      loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
+
+      if(Tag != null) {
+        string[] args = {Tag};
+        posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getTaggedPosts", args);
+      } else {
+        string[] args = {};
+        posts = await JSRuntime.InvokeAsync<List<DataModels.Blog>>("realmShim_Function", "getPostsAndTweets", args);
         
-        StateHasChanged();
+        if(PageNum != null) {
+          int pn = Convert.ToInt32(PageNum);
+          while(pn > 1) {
+            await More();
+            pn--;
+          }
+          if(PageNum != "1") {
+            await JSRuntime.InvokeVoidAsync("BlazorScrollToId", "bottomscroller");
+          }
+        } else {
+          PageNum = "1";
+        }
+      }
+      
+      StateHasChanged();
     }
 
     private async Task Advance() {
