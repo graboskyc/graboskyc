@@ -4,7 +4,10 @@
 @inject IJSRuntime JSRuntime;
 @using HeyRed.MarkdownSharp;
 @layout AlbumLayout;
+@inject IMongoCollection<DataModels.Blog> BlogsCollection;
 @using GSKYBlogServer.DataModels;
+@using MongoDB.Driver;
+@using MongoDB.Bson;
 
 <PageTitle>Chris Grabosky's Blog</PageTitle>
 
@@ -57,17 +60,24 @@
     private bool loginSuccess;
     protected override async Task OnInitializedAsync ()
     {
-        loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
+      var builder = Builders<DataModels.Blog>.Filter;
+      var filter = builder.Empty;
 
-        string[] args = {PostID};
-        post = await JSRuntime.InvokeAsync<DataModels.Blog>("realmShim_Function", "getPost", args);
-        if(post.type != "tweet") {
-          PostBody = (MarkupString)mark.Transform(post.Body);
-        }
-        if(post.feature_image != null) {
-          BannerImage = post.Hero;
-        }
-        StateHasChanged();
-        await JSRuntime.InvokeVoidAsync("PrismColorCode");
+      filter &= builder.Eq(x => x.status, "published");
+      filter &= builder.Eq(x => x._id, new ObjectId(PostID));
+
+      var posts = await BlogsCollection.Find(filter)
+        .Limit(1)
+        .ToListAsync();
+      post = posts.FirstOrDefault();
+
+      if(post.type != "tweet") {
+        PostBody = (MarkupString)mark.Transform(post.Body);
+      }
+      if(post.feature_image != null) {
+        BannerImage = post.Hero;
+      }
+      StateHasChanged();
+      //await JSRuntime.InvokeVoidAsync("PrismColorCode");
     }
 }
