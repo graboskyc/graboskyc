@@ -2,6 +2,10 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime;
 @layout AlbumLayout;
+@inject IMongoCollection<DataModels.IG> IGCollection;
+@using GSKYBlogServer.DataModels;
+@using MongoDB.Driver;
+@using MongoDB.Bson;
 
 <PageTitle>Chris Grabosky's Photos</PageTitle>
 
@@ -57,10 +61,15 @@
     private bool loginSuccess;
     protected override async Task OnInitializedAsync ()
     {
-        loginSuccess = await JSRuntime.InvokeAsync<bool>("login");
+      var builder = Builders<DataModels.IG>.Filter;
+      var filter = builder.Empty;
 
-        string[] args = {PicID};
-        pic = await JSRuntime.InvokeAsync<DataModels.IG>("realmShim_Function", "getPic", args);
-        StateHasChanged();
+      filter &= builder.Eq(x => x._id, new ObjectId(PicID));
+
+      var pics = await IGCollection.Find(filter)
+        .Limit(1)
+        .ToListAsync();
+      pic = pics.FirstOrDefault();
+
     }
 }
