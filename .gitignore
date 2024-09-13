@@ -20,3 +20,17 @@ IGAppCtr/IGApp/bin
 BlogPosts/Content
 IGAppCtr/IGApp/obj/Debug/net6.0/IGApp.assets.cache
 /.vs
+GSKYBlog/obj/GSKYBlog.csproj.nuget.dgspec.json
+GSKYBlog/obj/GSKYBlog.csproj.nuget.g.props
+GSKYBlog/obj/GSKYBlog.csproj.nuget.g.targets
+GSKYBlog/obj/project.assets.json
+GSKYBlog/obj/project.nuget.cache
+IGAppCtr/IGApp/obj/Debug/net6.0/IGApp.assets.cache
+IGAppCtr/IGApp/obj/IGApp.csproj.nuget.dgspec.json
+IGAppCtr/IGApp/obj/IGApp.csproj.nuget.g.props
+IGAppCtr/IGApp/obj/project.assets.json
+IGAppCtr/IGApp/obj/project.nuget.cache
+.env
+graboskyc.sln
+GSKYBlogServer/bin
+GSKYBlogServer/obj

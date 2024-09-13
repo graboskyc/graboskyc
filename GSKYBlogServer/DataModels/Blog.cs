@@ -1,4 +1,4 @@
-namespace GSKYBlog.DataModels {
+namespace GSKYBlogServer.DataModels {
     public class Blog {
         public string _id {get;set;}
         public string type {get;set;}

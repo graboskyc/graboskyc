@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/mnt/c/Users/chris/GITHUB/graboskyc/IGAppCtr/IGApp/IGApp.csproj": {}
+    "C:\\Users\\chris\\GITHUB\\graboskyc\\IGAppCtr\\IGApp\\IGApp.csproj": {}
   },
   "projects": {
-    "/mnt/c/Users/chris/GITHUB/graboskyc/IGAppCtr/IGApp/IGApp.csproj": {
+    "C:\\Users\\chris\\GITHUB\\graboskyc\\IGAppCtr\\IGApp\\IGApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/c/Users/chris/GITHUB/graboskyc/IGAppCtr/IGApp/IGApp.csproj",
+        "projectUniqueName": "C:\\Users\\chris\\GITHUB\\graboskyc\\IGAppCtr\\IGApp\\IGApp.csproj",
         "projectName": "IGApp",
-        "projectPath": "/mnt/c/Users/chris/GITHUB/graboskyc/IGAppCtr/IGApp/IGApp.csproj",
-        "packagesPath": "/home/graboskyc/.nuget/packages/",
-        "outputPath": "/mnt/c/Users/chris/GITHUB/graboskyc/IGAppCtr/IGApp/obj/",
+        "projectPath": "C:\\Users\\chris\\GITHUB\\graboskyc\\IGAppCtr\\IGApp\\IGApp.csproj",
+        "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\chris\\GITHUB\\graboskyc\\IGAppCtr\\IGApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/graboskyc/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -32,6 +32,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -49,10 +54,29 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.33, 6.0.33]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-arm64",
+              "version": "[6.0.33, 6.0.33]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.33, 6.0.33]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.33, 6.0.33]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -61,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

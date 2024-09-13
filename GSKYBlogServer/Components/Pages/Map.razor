@@ -1,0 +1,30 @@
+﻿@page "/Map";
+@layout BlankLayout;
+@using DataModels;
+@using MongoDB.Driver;
+@inject IMongoCollection<Flight> FlightsCollection;
+@inject IJSRuntime JSRuntime;
+@rendermode InteractiveServer
+
+<PageTitle>Chris Grabosky's Flights</PageTitle>
+
+<div id="ctr_globe"></div>
+
+@code {
+    private List<Flight> _flights = null;
+    private bool loginSuccess;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender) {
+        var builder = Builders<Flight>.Filter;
+        var filter = builder.Empty;
+        _flights = await FlightsCollection.Find(filter).ToListAsync();
+
+        if(firstRender) {
+            Console.WriteLine(_flights.Count);
+            await JSRuntime.InvokeVoidAsync("buildGlobe", _flights);
+        }
+    }
+
+
+
+}
