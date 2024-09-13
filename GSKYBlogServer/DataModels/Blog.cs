@@ -1,6 +1,10 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace GSKYBlogServer.DataModels {
+    [BsonIgnoreExtraElements]
     public class Blog {
-        public string _id {get;set;}
+        public ObjectId _id {get;set;}
         public string type {get;set;}
         public string status {get;set;}
         public string plaintext {get;set;}
@@ -9,6 +13,7 @@ namespace GSKYBlogServer.DataModels {
         public string slug {get;set;}
         public string html {get;set;}
         public string published_at {get;set;}
+        public List<string> tags {get;set;}
         public string Body {get {
             return html.Replace("__GHOST_URL__","").Replace("<img src=\"/content/images", "<img src=\"https://gskypublicmedia.s3.amazonaws.com");
         }}

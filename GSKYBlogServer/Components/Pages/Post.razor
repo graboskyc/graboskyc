@@ -4,6 +4,7 @@
 @inject IJSRuntime JSRuntime;
 @using HeyRed.MarkdownSharp;
 @layout AlbumLayout;
+@using GSKYBlogServer.DataModels;
 
 <PageTitle>Chris Grabosky's Blog</PageTitle>
 
@@ -31,7 +32,7 @@
             @if(post != null) {
               @if(post.type == "tweet") {
                 <h1 style="text-align:center;font-size:72px;font-style:italic;background-image:url('/assets/icons/Quotation-Marks-256.png');background-repeat:no-repeat;background-size:5%;padding:20px;">@post.title</h1>
-                <p style="text-align:center;font-size:16px;margin-top:72px;"><span class="oi oi-calendar"></span> @post.published_at.Split(" ")[0]</p>
+                <p style="text-align:center;font-size:16px;margin-top:72px;"><span class="oi oi-calendar"></span> @post.published_at</p>
               } else {
                 <h1>@post.title</h1>
                 @PostBody
