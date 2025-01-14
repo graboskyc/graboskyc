@@ -10,5 +10,8 @@ namespace GSKYBlogServer.DataModels {
         public string caption {get;set;} = null;
         public string location {get;set;} = null;
         public List<string> tags {get;set;} = null;
+
+        [BsonElement("type")]
+        public string MediaType {get;set;} = "unknown";
     }
 }
