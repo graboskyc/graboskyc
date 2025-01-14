@@ -68,6 +68,7 @@
       
       var builder = Builders<DataModels.IG>.Filter;
       var filter = builder.Empty;
+      filter &= builder.Eq(x=> x.MediaType, "picture");
 
       pics = await IGCollection.Find(filter)
         .SortByDescending(x=>x.taken_at)
