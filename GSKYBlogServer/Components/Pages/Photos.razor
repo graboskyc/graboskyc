@@ -98,7 +98,7 @@
       var builder = Builders<DataModels.IG>.Filter;
       var filter = builder.Empty;
 
-      filter &- builder.Eq(x=> x.MediaType, "picture");
+      filter &= builder.Eq(x=> x.MediaType, "picture");
       filter &= builder.Lt(x=> x._id, pics.LastOrDefault()._id);
 
       newPosts = await IGCollection.Find(filter)
