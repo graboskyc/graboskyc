@@ -11,10 +11,14 @@
 
   .ctr_top a {
     padding: 5px;
-    background-color: #1F1F1F;
-    color:#fff;
     text-decoration:none;
   }
+
+  .ctr_top a img {
+    width: 64px;
+    height: 64px;
+  }
+
 
   .ctr_top a i {
     vertical-align: text-top !important;
