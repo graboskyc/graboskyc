@@ -1,22 +1,19 @@
-﻿@using Microsoft.AspNetCore.Components.Web
-@namespace IGApp.Pages
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base href="~/" />
+    <base href="/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
     <link href="IGApp.styles.css" rel="stylesheet" />
-    <script src="https://s3.amazonaws.com/stitch-sdks/js/bundles/4.6.0/stitch.js"></script>
-    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+    <HeadOutlet @rendermode="InteractiveServer" />
 </head>
+
 <body>
-    @RenderBody()
+    <Routes @rendermode="InteractiveServer" />
 
     <div id="blazor-error-ui">
         <environment include="Staging,Production">
@@ -29,7 +26,7 @@
         <a class="dismiss">🗙</a>
     </div>
 
-    <script src="js/realmHooks.js"></script>
-    <script src="_framework/blazor.server.js"></script>
+    <script src="_framework/blazor.web.js"></script>
 </body>
+
 </html>

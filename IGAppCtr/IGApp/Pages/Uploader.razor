@@ -1,13 +1,12 @@
-@layout LoginLayout;
-@page "/Uploader";
-@page "/New";
-@inject NavigationManager NavigationManager;
-@inject IJSRuntime JSRuntime;
-@using IGApp.Datamodels;
-@using System.IO;
-@using System.Diagnostics;
-@using Azure.Storage;
-@using Azure.Storage.Blobs;
+@layout LoginLayout
+@page "/Uploader"
+@page "/New"
+@inject NavigationManager NavigationManager
+@inject IMongoCollection<IG> MediaCollection
+@using IGApp.Datamodels
+@using MongoDB.Driver
+@using Azure.Storage
+@using Azure.Storage.Blobs
 
 <div class="ctr_bg" style="background-color:#fff;height:220vh !important;"><div class="ctr_ctr_child ctr_bg">
     <h1>Upload a Pic</h1>
@@ -79,57 +78,55 @@
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 @code {
-    private RealmUser user = new RealmUser{};
-    private bool isLoading = true;
+    private bool isLoading = false;
     private bool isDone = false;
-    private string selectedPic = null;
     private string selFileTitle = "Choose Pic";
 
-    private string uploadName;
-    private string txt_loc, txt_caption, txt_tags = "";
+    private string uploadName = "";
+    private string txt_loc = "";
+    private string txt_caption = "";
+    private string txt_tags = "";
 
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {
         isLoading = true;
 
         try {
-            // upload it locally
-            await using FileStream fs = new("/tmp/"+uploadName, FileMode.Create);
-            await e.File.OpenReadStream(500000000).CopyToAsync(fs);
+            Guid guid = Guid.NewGuid();
+            uploadName = guid.ToString().ToUpper() + ".jpg";
 
-            // now push it to azure
-            string connectionString = Environment.GetEnvironmentVariable("BLOBENDPOINT");
+            // upload to azure blob
+            string connectionString = Environment.GetEnvironmentVariable("BLOBENDPOINT")!;
             string containerName = "media";
             BlobContainerClient container = new BlobContainerClient(connectionString, containerName);
-            BlobClient blob = container.GetBlobClient("fromctr/"+uploadName);
-            // Upload local file
-            blob.Upload("/tmp/"+uploadName);
+            BlobClient blob = container.GetBlobClient("fromctr/" + uploadName);
 
-            // write to Realm
-            string[] args = {"fromctr/"+uploadName, txt_loc, txt_caption, txt_tags};
-            await JSRuntime.InvokeVoidAsync("realmShim_Function", "newIgPost", args);
+            using var stream = e.File.OpenReadStream(500000000);
+            await blob.UploadAsync(stream, overwrite: true);
+
+            // insert into MongoDB
+            var tagsList = string.IsNullOrWhiteSpace(txt_tags)
+                ? new List<string>()
+                : txt_tags.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+
+            var ig = new IG
+            {
+                taken_at = DateTime.UtcNow,
+                path = "fromctr/" + uploadName,
+                caption = txt_caption,
+                location = txt_loc,
+                tags = tagsList,
+                trigger = $"https://gskywebstore.blob.core.windows.net/media/fromctr/{uploadName}",
+                MediaType = "picture"
+            };
+
+            await MediaCollection.InsertOneAsync(ig);
 
             isDone = true;
         } catch (Exception ex) {
             Console.WriteLine(ex.ToString());
         }
-    }
 
-    
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            user = await JSRuntime.InvokeAsync<RealmUser>("getUserDetails");
-            isLoading = true;
-            Guid guid = Guid.NewGuid();
-            uploadName = guid.ToString().ToUpper() + ".jpg";
-            isLoading = false;
-            
-        } catch(Exception ex) {
-            NavigationManager.NavigateTo("/");
-        }
+        isLoading = false;
     }
 }

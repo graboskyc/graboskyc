@@ -1,8 +1,9 @@
-@layout LoginLayout;
-@page "/Tweet";
-@inject NavigationManager NavigationManager;
-@inject IJSRuntime JSRuntime;
-@using IGApp.Datamodels;
+@layout LoginLayout
+@page "/Tweet"
+@inject NavigationManager NavigationManager
+@inject IMongoCollection<TweetPost> TweetCollection
+@using IGApp.Datamodels
+@using MongoDB.Driver
 
 <div class="ctr_bg" style="background-color:#fff;height:220vh !important;"><div class="ctr_ctr_child ctr_bg">
     <h1>Send a short Micro Blog Post</h1>
@@ -46,10 +47,8 @@
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 @code {
-    private RealmUser user = new RealmUser{};
-    private bool isLoading = true;
+    private bool isLoading = false;
     private bool isDone = false;
-    private string uploadName;
     private string txt = "";
 
     private async Task Upload()
@@ -57,28 +56,23 @@
         isLoading = true;
 
         try {
-            // write to Realm
-            string[] args = {txt};
-            await JSRuntime.InvokeVoidAsync("realmShim_Function", "newTweet", args);
+            var tweet = new TweetPost
+            {
+                published_at_dt = DateTime.UtcNow,
+                published_at = DateTime.UtcNow.ToString("yyyy-MM-dd"),
+                title = txt,
+                MediaType = "tweet",
+                status = "published",
+                tags = new List<string> { "tweet" }
+            };
+
+            await TweetCollection.InsertOneAsync(tweet);
 
             isDone = true;
         } catch (Exception ex) {
             Console.WriteLine(ex.ToString());
         }
-    }
 
-    
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            user = await JSRuntime.InvokeAsync<RealmUser>("getUserDetails");
-            isLoading = false;
-            
-        } catch(Exception ex) {
-            NavigationManager.NavigateTo("/");
-        }
+        isLoading = false;
     }
 }
